@@ -3,6 +3,7 @@ import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll';
 import ErrorBoundry from "../components/ErrorBoundry";
+import CreateRobot from "../components/CreateRobot";
 import './App.css'
 
 const App = () =>{
@@ -19,6 +20,10 @@ const App = () =>{
         setSearchfield(event.target.value)
     }
 
+    const updateRobots = (newData) => {
+        setRobots((prevRobots) => [...prevRobots, newData])
+    }
+
     const filteredRobots = robots.filter(robot =>{
         return robot.name.toLowerCase().includes(searchfield.toLowerCase());
     })
@@ -28,6 +33,7 @@ const App = () =>{
         <div className="tc">
             <h1 className='f1'>RoboFriends</h1>
             <SearchBox searchChange={onSearchChange}/>
+            <CreateRobot updateRobots={updateRobots} />
             <Scroll>
                 <ErrorBoundry>
                     <CardList robots={filteredRobots} />
